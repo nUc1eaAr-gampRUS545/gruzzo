@@ -37,7 +37,7 @@
                   </p>
 
                   <a href="#" class="card-btn" aria-label="Read more">
-                    <ion-icon name="arrow-forward"></ion-icon>
+                    →
                   </a>
                 </div>
               </li>
@@ -61,7 +61,7 @@
                   </p>
 
                   <a href="#" class="card-btn" aria-label="Read more">
-                    <ion-icon name="arrow-forward"></ion-icon>
+                    →
                   </a>
                 </div>
               </li>
@@ -85,7 +85,7 @@
                   </p>
 
                   <a href="#" class="card-btn" aria-label="Read more">
-                    <ion-icon name="arrow-forward"></ion-icon>
+                    →
                   </a>
                 </div>
               </li>
@@ -102,6 +102,17 @@
 </script>
 
 <style lang="scss" scoped>
+.btn{
+  position: relative;
+  color: var(--white);
+  background-color: var(--dark-orange);
+  max-width: max-content;
+  font-size: var(--fs-9);
+  height: 42px;
+  letter-spacing: 1px;
+  padding-block: 10px;
+  padding-inline: 15px 50px;
+}
 .feature-container{
     display: flex;
     flex-direction: column;

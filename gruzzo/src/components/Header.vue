@@ -9,9 +9,11 @@
         <div className="navbar-top">
           <a href="#" className="logo">Transportio</a>
 
-          <button className="nav-close-btn" aria-label="Clsoe menu" data-nav-toggler>
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
+          <button
+            className="nav-close-btn"
+            aria-label="Clsoe menu"
+            data-nav-toggler
+          ></button>
         </div>
 
         <ul className="navbar-list">
@@ -26,8 +28,6 @@
           <li className="navbar-item">
             <a href="#about" className="navbar-link" data-nav-link>
               <span>About</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
             </a>
           </li>
 
@@ -42,17 +42,18 @@
           <li className="navbar-item">
             <a href="#blog" className="navbar-link" data-nav-link>
               <span>Blog</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
             </a>
           </li>
 
           <li className="navbar-item">
             <a href="#" className="navbar-link" data-nav-link>
               <span>Contact</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
             </a>
+          </li>
+          <li className="navbar-item">
+            <router-link to="/login" className="navbar-link">
+              <span>Sign-in</span>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -61,7 +62,9 @@
         <div>
           <p className="contact-label">Free Call In Russia</p>
 
-          <a href="tel:12345678910" className="contact-number">+7 234 567 8910</a>
+          <a href="tel:12345678910" className="contact-number"
+            >+7 234 567 8910</a
+          >
         </div>
 
         <div className="contact-icon">
@@ -79,9 +82,7 @@
 </template>
 
 <script>
-
 //const backTopBtn = document.querySelector(".data-back-top-btn");
-
 
 export default {
   name: "HeaderProject",
@@ -120,9 +121,9 @@ export default {
   align-items: center;
   gap: 30px;
   max-width: 1180px;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
 .logo {
@@ -294,7 +295,6 @@ export default {
     font-size: 35px;
     opacity: 0.6;
   }
-
 }
 
 /**
@@ -320,7 +320,7 @@ export default {
  * HEADER
  */
 
- .header-container {
+  .header-container {
     max-width: unset;
   }
 
@@ -331,7 +331,6 @@ export default {
   /**
  * HERO
  */
-
 }
 
 /**
@@ -343,7 +342,7 @@ export default {
  * REUSED STYLE
  */
 
- .header-container {
+  .header-container {
     max-width: 720px;
   }
 
@@ -373,7 +372,6 @@ export default {
     font-size: var(--fs-7);
     padding: 12px 30px;
   }
-
 }
 
 /**
@@ -403,7 +401,7 @@ export default {
  * REUSED STYLE
  */
 
- .header-container {
+  .header-container {
     max-width: 960px;
   }
 
@@ -430,7 +428,7 @@ export default {
 
   .nav-open-btn,
   .navbar-top,
-  .navbar-link>ion-icon {
+  .navbar-link > ion-icon {
     display: none;
   }
 
@@ -465,7 +463,7 @@ export default {
  * REUSED STYLE
  */
 
- .header-container {
+    .header-container {
       max-width: 1180px;
     }
 
@@ -480,7 +478,6 @@ export default {
     .header .contact-number {
       --fs-6: 3rem;
     }
-
-
   }
-}</style>
+}
+</style>

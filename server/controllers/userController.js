@@ -15,7 +15,7 @@ const generateJwt = (id, email, role) => {
 class UserController {
     async registration(req, res, next) {
         try {
-            const { email, password, role } = req.body;
+            const {name,surname, avatar, email, password } = req.body;
             if (!email || !password) {
                 return next(ApiError.badRequest('Некорректный email или password'));
             }
@@ -24,12 +24,12 @@ class UserController {
                 return next(ApiError.badRequest('Пользователь с таким email уже существует'));
             }
             const hashPassword = await bcrypt.hash(password, 5);
-            user = await User.create({ email, role, password: hashPassword });
+            user = await User.create({ name,surname, avatar, email, password: hashPassword });
             if (!user) {
                 return next(ApiError.internal('Ошибка создания пользователя'));
             }
             const basket = await Basket.create({ userId: user.id });
-            const token = generateJwt(user.id, user.email, user.role);
+            const token = generateJwt(user.id, user.email, user.name);
             return res.json({token});
         } catch (error) {
             console.error('Ошибка при регистрации пользователя:', error);
@@ -47,12 +47,12 @@ class UserController {
         if (!comparePassword) {
             return next(ApiError.internal('Указан неверный пароль'))
         }
-        const token = generateJwt(user.id, user.email, user.role)
+        const token = generateJwt(user.id, user.email, user.name)
         return res.json({token})
     }
 
     async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJwt(req.user.id, req.user.email, req.user.name)
         return res.json({token})
     }
     async deleteAllUsers(req, res) {

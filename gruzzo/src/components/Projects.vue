@@ -11,23 +11,18 @@
                 took.
             </p>
 
-            <ul class="project-list">
-                <li class="project-item">
+            <ul class="project-list"  >
+                <li class="project-item" v-for="card in cards" :key="card.id">
                     <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-1.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
+                        <figure class="card-banner img-holder"  :style="`--width: 397; --height: 352`">
+                            <img :src="card.img" width="397" height="352" loading="lazy"
+                                :alt="card.title" class="img-cover" />
                         </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
                         <div class="card-content">
-                            <p class="card-tag">Warehousing , Distrbution</p>
+                            <p class="card-tag">{{ card.title }}</p>
 
                             <h3 class="h3">
-                                <a href="#" class="card-title">Warehouse inventory</a>
+                                <a href="#" class="card-title">{{ card.body }}</a>
                             </h3>
 
                             <a href="#" class="card-link">Read More</a>
@@ -35,128 +30,21 @@
                     </div>
                 </li>
 
-                <li class="project-item">
-                    <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-2.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
-                        </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
-                        <div class="card-content">
-                            <p class="card-tag">Logistics, Analytics</p>
-
-                            <h3 class="h3">
-                                <a href="#" class="card-title">Minimize Manufacturing</a>
-                            </h3>
-
-                            <a href="#" class="card-link">Read More</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="project-item">
-                    <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-3.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
-                        </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
-                        <div class="card-content">
-                            <p class="card-tag">Warehousing , Distrbution</p>
-
-                            <h3 class="h3">
-                                <a href="#" class="card-title">Warehouse inventory</a>
-                            </h3>
-
-                            <a href="#" class="card-link">Read More</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="project-item">
-                    <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-4.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
-                        </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
-                        <div class="card-content">
-                            <p class="card-tag">Logistics, Analytics</p>
-
-                            <h3 class="h3">
-                                <a href="#" class="card-title">Minimize Manufacturing</a>
-                            </h3>
-
-                            <a href="#" class="card-link">Read More</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="project-item">
-                    <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-5.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
-                        </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
-                        <div class="card-content">
-                            <p class="card-tag">Warehousing , Distrbution</p>
-
-                            <h3 class="h3">
-                                <a href="#" class="card-title">Warehouse inventory</a>
-                            </h3>
-
-                            <a href="#" class="card-link">Read More</a>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="project-item">
-                    <div class="project-card">
-                        <figure class="card-banner img-holder" style="--width: 397; --height: 352">
-                            <img src="../assets/images/project-6.jpg" width="397" height="352" loading="lazy"
-                                alt="Warehouse inventory" class="img-cover" />
-                        </figure>
-
-                        <button class="action-btn" aria-label="View image">
-                            <ion-icon name="expand-outline"></ion-icon>
-                        </button>
-
-                        <div class="card-content">
-                            <p class="card-tag">Logistics, Analytics</p>
-
-                            <h3 class="h3">
-                                <a href="#" class="card-title">Minimize Manufacturing</a>
-                            </h3>
-
-                            <a href="#" class="card-link">Read More</a>
-                        </div>
-                    </div>
-                </li>
+                
             </ul>
         </div>
     </section>
 </template>
 
 <script >
+import cards from "../constants/cards.js"
 export default {
-    name: "newProjects"
+    name: "newProjects",
+    data(){
+        return {
+        cards:[...cards]
+        
+    }}
 }
 </script>
 

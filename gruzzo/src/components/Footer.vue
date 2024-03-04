@@ -139,11 +139,17 @@ export default {
 }
 .footer-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+}
+.footer-list{
+  width: fit-content;
 }
 .footer-top {
   display: grid;
   gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
+    justify-items: self-end;
+    margin: 0 50px;
 }
 
 .footer .logo {
@@ -192,7 +198,8 @@ export default {
   color: var(--indigo-dye);
 }
 
-.copyright-link {
-  display: inline-block;
+.copyright{
+  display: flex;
+  justify-content: center;
 }
 </style>

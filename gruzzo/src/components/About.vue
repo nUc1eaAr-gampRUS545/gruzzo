@@ -48,7 +48,7 @@
               <ul class="about-list">
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">
@@ -59,7 +59,7 @@
 
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">
@@ -70,7 +70,7 @@
 
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">
@@ -81,7 +81,7 @@
 
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">
@@ -92,7 +92,7 @@
 
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">
@@ -103,7 +103,7 @@
 
                 <li class="about-item">
                   <div class="about-icon">
-                    <ion-icon name="chevron-forward"></ion-icon>
+                    >
                   </div>
 
                   <p class="about-text">

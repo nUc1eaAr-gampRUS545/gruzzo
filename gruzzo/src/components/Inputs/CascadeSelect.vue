@@ -27,8 +27,7 @@ const props = defineProps({
   watch(
     () => props.modelValue,
     (newValue) => {
-      console.log(props.modelValue)
-      local.value = newValue.cname;
+      local.value = newValue;
     }
   );
 </script>

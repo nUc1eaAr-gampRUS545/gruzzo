@@ -7,7 +7,7 @@
 
       <nav className="navbar" data-navbar>
         <div className="navbar-top">
-          <a href="#" className="logo">Transportio</a>
+          <router-link to="/" className="logo">Transportio</router-link>
 
           <button
             className="nav-close-btn"
@@ -70,9 +70,14 @@
               <span>Contact</span>
             </div>
           </li>
-          <li className="navbar-item">
+          <li className="navbar-item" v-if="!isLoginedIn">
             <router-link to="/login" className="navbar-link">
               <span>Sign-in</span>
+            </router-link>
+          </li>
+          <li className="navbar-item" v-if="isLoginedIn">
+            <router-link to="/login" @click="handleSignOut" className="navbar-link">
+              <span>Sign-out</span>
             </router-link>
           </li>
         </ul>
@@ -97,8 +102,8 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <div className="overlay" data-nav-toggler data-overlay></div>
-      <router-link to="/profile"
+      <div className="overlay" ></div>
+      <router-link to="/profile" v-if="isLoginedIn"
         ><i class="pi pi-user" style="font-size: 2.5rem; color: aliceblue"></i
       ></router-link>
     </div>
@@ -108,14 +113,9 @@
 <script setup>
 import { defineProps } from "vue";
 import "primeicons/primeicons.css";
-//const backTopBtn = document.querySelector(".data-back-top-btn");
-/*const scrollMeTo = (id) => {
-  const topElement = document.getElementById(id);
-  if (topElement) {
-    topElement.scrollIntoView({ behavior: "smooth" });
-  }
-};*/
-
+import { useStore } from "vuex";
+const store = useStore();
+const isLoginedIn = store.state.isLoginedIn;
 const props = defineProps({
   scrollMeTo: {
     type: Function,
@@ -125,6 +125,10 @@ const props = defineProps({
 const clickScrollButton = (id) => {
   props.scrollMeTo(id);
 };
+const handleSignOut=()=>{
+  store.commit("logined",false);
+  store.commit("updateUser", []);
+}
 </script>
 
 <style lang="scss">

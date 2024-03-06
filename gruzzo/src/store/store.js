@@ -3,7 +3,8 @@ import { createStore } from 'vuex';
 export default createStore({
   state: {
     info:{},
-    orders:[]
+    orders:[],
+    isLoginedIn:false
   },
   mutations: {
     updateUser(state, newUser) {
@@ -12,8 +13,10 @@ export default createStore({
     },
     getOrders(state, newOrders) {
       state.orders = newOrders;
-
     },
+    logined(state, boolean){
+      state.isLoginedIn = boolean;
+    }
   },
   
   getters: {

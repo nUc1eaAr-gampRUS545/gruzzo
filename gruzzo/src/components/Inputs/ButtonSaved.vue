@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
     <div class="button-wrapper">
-      
       <span>&nbsp;&nbsp;&nbsp;Оформить заказ &nbsp;&nbsp;&nbsp;</span> <span>{{ priceShow()}}&nbsp;&nbsp;&nbsp;</span>
     </div>
   </div>

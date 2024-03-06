@@ -10,22 +10,14 @@ import InputOption from "./Inputs/InputOptions.vue";
 import ButtonSaved from "./Inputs/ButtonSaved.vue";
 import { useStore } from "vuex";
 import { createOrder } from "./api/apiTickets";
-
+import SeccessMessage from "./Messages/SeccessMessage.vue";
+import ErrorMessage from "./Messages/ErrorMessage.vue";
+import { formData } from "@/constants/formTicket";
+import { useRouter } from "vue-router";
 const store = useStore();
-
-const formData = {
-  createdUserId: 0,
-  placeA: "",
-  placeB: "",
-  gazelle: ref({ name: "", price: 0 }),
-  date: ref(""),
-  niggers: ref(0),
-  hours: ref(0),
-  options: ref(""),
-  phone: ref(""),
-  price: ref(0),
-};
-
+let isSeccessMessageShow = ref(false);
+let isErrorMessageShow = ref(false);
+const router = useRouter();
 const calculatePrice = () => {
   formData.price.value = Math.floor(
     formData.gazelle.price * (formData.niggers / 10) * formData.hours
@@ -40,25 +32,38 @@ onMounted(() => {
   formData.createdUserId = valueFromStore.id;
 });
 const handleSubmit = () => {
-  let orderOptions = "";
-  formData.options.map((data) => {
-    orderOptions += `${data.name}; `;
-    return orderOptions;
-  });
-  const orderData = {
-    createdUserId: formData.createdUserId,
-    placeA: formData.placeA,
-    placeB: formData.placeB,
-    gazelle: formData.gazelle.name,
-    date: formData.date,
-    niggers: formData.niggers,
-    hours: formData.hours,
-    options: orderOptions,
-    phone: formData.phone,
-    price: formData.price.value,
-  };
-  console.log(orderData);
-  createOrder(orderData).then(() => {});
+  if (store.state.isLoginedIn) {
+    let orderOptions = "";
+    formData.options.map((data) => {
+      orderOptions += `${data.name}; `;
+      return orderOptions;
+    });
+    const orderData = {
+      createdUserId: formData.createdUserId,
+      placeA: formData.placeA,
+      placeB: formData.placeB,
+      gazelle: formData.gazelle.name,
+      date: formData.date,
+      niggers: formData.niggers,
+      hours: formData.hours,
+      options: orderOptions,
+      phone: formData.phone,
+      price: formData.price.value,
+    };
+
+    createOrder(orderData)
+      .then(() => {
+        isSeccessMessageShow.value = true;
+        return isSeccessMessageShow;
+      })
+      .catch(() => {
+        isErrorMessageShow.value = true;
+        return isErrorMessageShow;
+      });
+  } else {
+    isErrorMessageShow.value = true;
+    router.push("./login")
+  }
 };
 </script>
 
@@ -103,6 +108,8 @@ const handleSubmit = () => {
         <ButtonSaved @click="handleSubmit()" :price="formData.price" />
       </div>
     </form>
+    <SeccessMessage :isMessageShow="isSeccessMessageShow" />
+    <ErrorMessage :isMessageShow="isErrorMessageShow" />
   </div>
 </template>
 

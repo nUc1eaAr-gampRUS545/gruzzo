@@ -34,33 +34,26 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { login } from "@/components/api/userApi";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-export default {
-  name: "AuthForm",
+const router = useRouter();
+const store = useStore();
+const formData = {
+  email: "",
+  password: "",
+};
 
-  setup() {
-    const router = useRouter();
-
-    const formData = {
-      email: "",
-      password: "",
-    };
-
-    const handleSubmit = async () => {
-      try {
-        await login(formData)
-        router.push("/");
-        
-      } catch (error) {
-        console.error("Ошибка при входе:", error);
-      }
-    };
-
-    return { formData, handleSubmit };
-  },
+const handleSubmit = async () => {
+  try {
+    await login(formData);
+    router.push("/");
+    store.commit("logined", true);
+  } catch (error) {
+    console.error("Ошибка при входе:", error);
+  }
 };
 </script>
 

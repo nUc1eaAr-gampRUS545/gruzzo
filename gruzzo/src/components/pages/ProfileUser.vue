@@ -3,16 +3,24 @@ import { onMounted } from "vue";
 import HeaderProject from "../HeaderProject.vue";
 import { useStore } from "vuex";
 import { getTickets } from "../api/apiTickets";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 const valueFromStore = store.state.info;
+const isLoginedIn = store.state.isLoginedIn;
 
 onMounted(async () => {
   try {
-    const response = await getTickets();
-    store.commit("getOrders", response.data);
-  
-  
+    if (isLoginedIn) {
+      const response = await getTickets();
+      const filtredOrders = response.data.filter(
+        (card) => valueFromStore.id == card.createduserid
+      );
+      store.commit("getOrders", filtredOrders);
+    } else {
+      router.push("/login");
+    }
   } catch (error) {
     console.error("Ошибка при загрузке заказов:", error);
   }
@@ -20,8 +28,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="p">
-    <HeaderProject />
+  <div class="p" v-if="isLoginedIn">
+    <HeaderProject style="background-color: hsl(130, 100%, 33%)" />
     <section class="profile">
       <div class="profile__container">
         <img class="profile__photography" :src="valueFromStore.avatar" />
@@ -31,17 +39,18 @@ onMounted(async () => {
         <p class="profile__mail">Почта: {{ valueFromStore.email }}</p>
       </div>
       <ul class="project-list">
-        <li class="project-item" v-for="card in store.state.orders" :key="card.id">
-      
-           
-            <div class="card-content">
-              <p class="card-tag">{{ card.price }}</p>
-              <h3 class="h3">
-                <a href="#" class="card-title">{{ card.date }}</a>
-              </h3>
-            
-            </div>
-         
+        <li
+          class="project-item"
+          v-for="card in store.state.orders"
+          :key="card.id"
+        >
+          <div class="card-content">
+            <p class="card-tag">{{ card.date.split("T")[0] }}</p>
+            <h3 class="h3">
+              <div class="card-title">{{ card.price }}&nbsp;₽</div>
+            </h3>
+            <p class="card-tag">{{ card.placea}} - {{ card.placeb}}</p>
+          </div>
         </li>
       </ul>
     </section>
@@ -50,6 +59,7 @@ onMounted(async () => {
 <style scoped>
 .p {
   display: flex;
+  margin-top: 40px;
   flex-direction: column;
   align-content: center;
   align-items: center;
@@ -73,65 +83,18 @@ onMounted(async () => {
   align-items: center;
   font-family: sans-serif;
 }
-.project {
-  background-color: var(--alice-blue);
+.card-content {
+  width: 200px;
+  padding-left: 10px;
+  height: 150px;
+  color: white;
+  background-color: hsl(130, 100%, 33%);
+  border-radius: 6px;
 }
-
-.project :is(.section-subtitle, .section-title, .section-text) {
-  text-align: center;
+.card-tag{
+  color: white;
+  padding-top:10px;
 }
-
-.project .section-text {
-  margin-block: 20px 50px;
-}
-
-.project-card {
-  position: relative;
-  width: 600px;
-  height: auto;
-}
-
-.project-card .action-btn {
-  background-color: var(--dark-orange);
-  color: var(--white);
-  font-size: 28px;
-  padding: 16px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.project-card:is(:hover, :focus-within) .action-btn {
-  opacity: 1;
-}
-
-.project-card .card-tag {
-  color: var(--dark-orange);
-  font-size: var(--fs-9);
-}
-
-.project-card .card-content {
-  position: relative;
-  background-color: var(--white);
-  padding: 20px 30px;
-  margin-block-start: -50px;
-  margin-inline-start: 30px;
-}
-
-.project-card .h3 {
-  font-size: var(--fs-7);
-}
-
-.project-card .card-title {
-  transition: var(--transition);
-}
-
-.project-card :is(.card-title, .card-link):is(:hover, :focus) {
-  color: var(--dark-orange);
-}
-
 .project-card .card-link {
   color: var(--prussian-blue);
   font-size: var(--fs-10);
@@ -142,33 +105,12 @@ onMounted(async () => {
 }
 
 .project-list {
-  display: flex;
+  display: grid;
   overflow-x: auto;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 150px 150px;
   gap: 20px;
   padding-block-end: 40px;
   scroll-snap-type: inline mandatory;
-}
-
-.project-item {
-  scroll-snap-align: start;
-}
-
-.project-list::-webkit-scrollbar {
-  height: 15px;
-}
-
-.project-list::-webkit-scrollbar-track {
-  outline: 2px solid var(--dark-orange);
-  border-radius: 10px;
-}
-
-.project-list::-webkit-scrollbar-thumb {
-  border: 3px solid var(--cultured-1);
-  border-radius: 10px;
-  background-color: var(--dark-orange);
-}
-
-.project-list::-webkit-scrollbar-button {
-  width: calc(25% - 40px);
 }
 </style>

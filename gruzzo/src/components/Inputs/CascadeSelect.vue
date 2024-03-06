@@ -21,14 +21,14 @@ const props = defineProps({
   const local = ref(props.modelValue);
   
   watch(local, (newValue) => {
-    emit("update:modelValue", newValue);
+    emit("update:modelValue", newValue.cname);
   });
   
   watch(
     () => props.modelValue,
     (newValue) => {
       console.log(props.modelValue)
-      local.value = newValue;
+      local.value = newValue.cname;
     }
   );
 </script>

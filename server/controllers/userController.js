@@ -30,7 +30,7 @@ class UserController {
             }
             const basket = await Basket.create({ userId: user.id });
             const token = generateJwt(user.id, user.email, user.name);
-            return res.json({token});
+            return res.json({user});
         } catch (error) {
             console.error('Ошибка при регистрации пользователя:', error);
             res.status(500).json({ error: 'Ошибка при регистрации пользователя' });
@@ -48,7 +48,14 @@ class UserController {
             return next(ApiError.internal('Указан неверный пароль'))
         }
         const token = generateJwt(user.id, user.email, user.name)
-        return res.json({token})
+        const data = {
+            id:user.id,
+            name:user.name,
+            surname:user.surname,
+            avatar:user.avatar,
+            email:user.email
+        }
+        return res.json({data})
     }
 
     async check(req, res, next) {

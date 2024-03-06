@@ -1,5 +1,5 @@
-<script>
-import HeaderProject from "@/components/Header.vue";
+<script setup>
+import HeaderProject from "../HeaderProject.vue";
 import HeroBanner from "@/components/HeroBanner.vue";
 import AboutContainer from "@/components/About.vue";
 import ServiceProject from "@/components/Service.vue";
@@ -9,6 +9,7 @@ import FooterPage from "@/components/Footer.vue";
 import NewsLatter from "@/components/NewsLatter.vue";
 import BlogProject from "@/components/Blog.vue";
 import CreateOrder from "../CreateOrder.vue";
+import { onMounted } from "vue";
 const navbar = document.querySelector(".data-navbar");
 const navToggler = document.querySelectorAll(".data-nav-toggler");
 const navLinks = document.querySelectorAll(".data-nav-link");
@@ -27,7 +28,15 @@ for (let i = 0; i < navLinks.length; i++) {
     overlay.classList.remove("active");
   });
 }
-document.addEventListener("DOMContentLoaded", function () {
+
+const scrollMeTo = (id) => {
+  const topElement = document.getElementById(id);
+  if (topElement) {
+    topElement.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+onMounted(() => {
   const header = document.querySelector("#header");
   const backTopBtn = document.querySelector(".data-back-top-btn");
   window.addEventListener("scroll", function () {
@@ -40,48 +49,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-export default {
-  components: {
-    HeaderProject,
-    HeroBanner,
-    AboutContainer,
-    ServiceProject,
-    FetureProjects,
-    newProjects,
-    BlogProject,
-    FooterPage,
-    NewsLatter,
-    CreateOrder
-  },
-  name:"MainProject"
-};
 </script>
 <template>
   <div id="top">
-    <HeaderProject />
+    <HeaderProject :scrollMeTo="scrollMeTo" />
     <main>
       <article>
-        <HeroBanner />
-        <CreateOrder/>
-        <AboutContainer />
-        <ProductCarousel/>
-        <ServiceProject />
+        <HeroBanner id="home"/>
+        <CreateOrder />
+        <AboutContainer id="about" />
+        <ProductCarousel />
+        <ServiceProject id="service"/>
         <FetureProjects />
         <newProjects />
-        <BlogProject />
+        <BlogProject id="blog" />
         <NewsLatter />
-        <FooterPage />
-        
+        <FooterPage id="footer" />
       </article>
     </main>
-    <a
-      href="#top"
+    <div
+      @click="scrollMeTo('top')"
       class="back-top-btn data-back-top-btn"
       aria-label="Back to top"
     >
       ^
-    </a>
+    </div>
   </div>
 </template>
 
@@ -96,11 +88,12 @@ export default {
 .back-top-btn {
   position: fixed;
   bottom: 10px;
+  cursor: pointer;
   right: 20px;
   background-color: var(--eerie-black);
   color: var(--white);
   font-size: 20px;
-  padding: 10px;
+  padding: 4px 10px 0px 10px;
   z-index: 3;
   opacity: 0;
   visibility: hidden;

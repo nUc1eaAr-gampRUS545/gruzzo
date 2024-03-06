@@ -1,5 +1,5 @@
 <template>
-      <section class="section about" id="about" aria-label="about">
+      <section class="section about" id="about" >
           <div class="about-container">
             <figure
               class="about-banner img-holder"

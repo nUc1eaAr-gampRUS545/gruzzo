@@ -18,37 +18,57 @@
 
         <ul className="navbar-list">
           <li className="navbar-item">
-            <a href="#home" className="navbar-link" data-nav-link>
+            <div
+              @click="clickScrollButton('home')"
+              className="navbar-link"
+              data-nav-link
+            >
               <span>Home</span>
 
               <ion-icon name="chevron-forward"></ion-icon>
-            </a>
+            </div>
           </li>
 
           <li className="navbar-item">
-            <a href="#about" className="navbar-link" data-nav-link>
+            <div
+              @click="clickScrollButton('about')"
+              className="navbar-link"
+              data-nav-link
+            >
               <span>About</span>
-            </a>
+            </div>
           </li>
 
           <li className="navbar-item">
-            <a href="#service" className="navbar-link" data-nav-link>
+            <div
+              @click="clickScrollButton('service')"
+              className="navbar-link"
+              data-nav-link
+            >
               <span>Service</span>
 
               <ion-icon name="chevron-forward"></ion-icon>
-            </a>
+            </div>
           </li>
 
           <li className="navbar-item">
-            <a href="#blog" className="navbar-link" data-nav-link>
+            <div
+              @click="clickScrollButton('blog')"
+              className="navbar-link"
+              data-nav-link
+            >
               <span>Blog</span>
-            </a>
+            </div>
           </li>
 
           <li className="navbar-item">
-            <a href="#" className="navbar-link" data-nav-link>
+            <div
+              @click="clickScrollButton('footer')"
+              className="navbar-link"
+              data-nav-link
+            >
               <span>Contact</span>
-            </a>
+            </div>
           </li>
           <li className="navbar-item">
             <router-link to="/login" className="navbar-link">
@@ -62,13 +82,14 @@
         <div>
           <p className="contact-label">Free Call In Russia</p>
 
-          <a href="tel:12345678910" className="contact-number"
-            >+7 234 567 8910</a
-          >
+          <div className="contact-number">+7 234 567 8910</div>
         </div>
 
         <div className="contact-icon">
-          <ion-icon name="call-outline"></ion-icon>
+          <i
+            class="pi pi-phone"
+            style="font-size: 2.5rem; color: aliceblue"
+          ></i>
         </div>
       </div>
 
@@ -77,20 +98,32 @@
       </button>
 
       <div className="overlay" data-nav-toggler data-overlay></div>
+      <router-link to="/profile"
+        ><i class="pi pi-user" style="font-size: 2.5rem; color: aliceblue"></i
+      ></router-link>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps } from "vue";
+import "primeicons/primeicons.css";
 //const backTopBtn = document.querySelector(".data-back-top-btn");
+/*const scrollMeTo = (id) => {
+  const topElement = document.getElementById(id);
+  if (topElement) {
+    topElement.scrollIntoView({ behavior: "smooth" });
+  }
+};*/
 
-export default {
-  name: "HeaderProject",
-  data() {
-    return {
-      message: "Привет, мир!",
-    };
+const props = defineProps({
+  scrollMeTo: {
+    type: Function,
+    required: true,
   },
+});
+const clickScrollButton = (id) => {
+  props.scrollMeTo(id);
 };
 </script>
 
@@ -189,6 +222,7 @@ export default {
 .navbar-link {
   color: var(--black);
   display: flex;
+  cursor: pointer;
   justify-content: space-between;
   align-items: center;
   padding: 15px;

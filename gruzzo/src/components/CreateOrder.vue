@@ -1,5 +1,5 @@
-<script>
-import {ref} from "vue"
+<script setup>
+import { onMounted, ref, watch } from "vue";
 import DropDownPrimeVue from "./Inputs/DropDown.vue";
 import CalendarPrimeVue from "./Inputs/CalendarPrimeVue.vue";
 import InputNumberPrimeVue from "./Inputs/InputNumber.vue";
@@ -7,39 +7,65 @@ import CascadeSelectPrimeVue from "./Inputs/CascadeSelect.vue";
 import CaruselProject from "./Inputs/Carusel.vue";
 import InputPhone from "./Inputs/InputMask.vue";
 import InputOption from "./Inputs/InputOptions.vue";
-export default {
-  
-  components: {
-    DropDownPrimeVue,
-    CalendarPrimeVue,
-    InputNumberPrimeVue,
-    CascadeSelectPrimeVue,
-    CaruselProject,
-    InputPhone,
-    InputOption,
-  },
-  setup() {
-    const formData = {
-      placeA: "",
-      placeB: "",
-      gazelle: "",
-      date: ref(""),
-      niggers: 0,
-      hours: 0,
-      options: "",
-      phone: "",
-      price: "",
-    };
+import ButtonSaved from "./Inputs/ButtonSaved.vue";
+import { useStore } from "vuex";
+import { createOrder } from "./api/apiTickets";
 
-    return { formData };
-  },
-  name: "CreateOffer",
+const store = useStore();
+
+const formData = {
+  createdUserId: 0,
+  placeA: "",
+  placeB: "",
+  gazelle: ref({ name: "", price: 0 }),
+  date: ref(""),
+  niggers: ref(0),
+  hours: ref(0),
+  options: ref(""),
+  phone: ref(""),
+  price: ref(0),
+};
+
+const calculatePrice = () => {
+  formData.price.value = Math.floor(
+    formData.gazelle.price * (formData.niggers / 10) * formData.hours
+  );
+};
+
+watch([formData.gazelle, formData.niggers, formData.hours], () => {
+  calculatePrice();
+});
+onMounted(() => {
+  const valueFromStore = store.state.info;
+  formData.createdUserId = valueFromStore.id;
+});
+const handleSubmit = () => {
+  let orderOptions = "";
+  formData.options.map((data) => {
+    orderOptions += `${data.name}; `;
+    return orderOptions;
+  });
+  const orderData = {
+    createdUserId: formData.createdUserId,
+    placeA: formData.placeA,
+    placeB: formData.placeB,
+    gazelle: formData.gazelle.name,
+    date: formData.date,
+    niggers: formData.niggers,
+    hours: formData.hours,
+    options: orderOptions,
+    phone: formData.phone,
+    price: formData.price.value,
+  };
+  console.log(orderData);
+  createOrder(orderData).then(() => {});
 };
 </script>
+
 <template>
   <div class="content">
     <CaruselProject />
-    <div class="createorder">
+    <form class="createorder" @submit.prevent="handleSubmit">
       <div class="container">
         <div class="container-item">
           <p>Пункт A</p>
@@ -57,9 +83,7 @@ export default {
         </div>
         <div class="container-item">
           <p>Дата</p>
-          <CalendarPrimeVue
-          v-model="formData.date"
-          />
+          <CalendarPrimeVue v-model="formData.date" />
         </div>
       </div>
       <div class="container">
@@ -70,14 +94,18 @@ export default {
         <InputNumberPrimeVue v-model="formData.hours" />
       </div>
       <div class="container-phone">
-        <InputPhone v-model="formData.hours" />
+        <InputPhone v-model="formData.phone" />
       </div>
       <div class="container-option">
         <InputOption v-model="formData.options" />
       </div>
-    </div>
+      <div class="container-save">
+        <ButtonSaved @click="handleSubmit()" :price="formData.price" />
+      </div>
+    </form>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .content {
   display: flex;
@@ -92,7 +120,7 @@ export default {
   margin: 50px auto 0 auto;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 650px;
 }
 .container {
   display: flex;
@@ -114,6 +142,12 @@ export default {
 .container-option {
   display: flex;
   align-items: flex-start;
+}
+.container-save {
+  display: flex;
+  margin: 70px 0px 50px 0px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 1200px) {

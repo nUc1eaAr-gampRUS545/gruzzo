@@ -37,11 +37,13 @@
 <script>
 import { login } from "@/components/api/userApi";
 import { useRouter } from "vue-router";
+
 export default {
   name: "AuthForm",
 
   setup() {
     const router = useRouter();
+
     const formData = {
       email: "",
       password: "",
@@ -49,8 +51,9 @@ export default {
 
     const handleSubmit = async () => {
       try {
-        await login(formData);
+        await login(formData)
         router.push("/");
+        
       } catch (error) {
         console.error("Ошибка при входе:", error);
       }

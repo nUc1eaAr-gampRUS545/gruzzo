@@ -1,61 +1,78 @@
 <template>
-     <div class="wrapper">
-  <a href="#"><span>Hover Me!</span></a>
-</div>
+  <div class="wrapper">
+    <div class="button-wrapper">
+      
+      <span>&nbsp;&nbsp;&nbsp;Оформить заказ &nbsp;&nbsp;&nbsp;</span> <span>{{ priceShow()}}&nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
 </template>
-<script>
-import { defineComponent } from '@vue/composition-api'
 
-export default defineComponent({
-    setup() {
-        
-    },
-})
+<script setup>
+import { defineProps } from "vue";
+const props = defineProps({
+  price: {
+    type: Number,
+  },
+});
+const priceShow=()=>{
+  let price = props.price.value.toString()
+  if(price == null) {
+    return ` `
+  }
+
+  return ` ${price}₽`
+}
 </script>
 
 <style>
-.wrapper{
+.wrapper {
   position: relative;
   transform: translate(-50%, -50%);
+  overflow: hidden; /* Добавлено свойство overflow для обрезания контента */
 }
 
-a{
-  display: block;
-  width: 200px;
-  height: 40px;
-  line-height: 40px;
+.button-wrapper {
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  width: fit-content;
+  height: fit-content;
+  line-height: 14px;
   font-size: 18px;
   font-family: sans-serif;
   text-decoration: none;
   color: #333;
-  border: 2px solid #333;
-  letter-spacing: 2px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
   text-align: center;
   position: relative;
-  transition: all .35s;
+  transition: all 0.35s;
+  padding: 14px 0px;
+  box-sizing: border-box;
+
 }
 
-a span{
+.button-wrapper span {
   position: relative;
   z-index: 2;
 }
 
-a:after{
+.button-wrapper:after {
   position: absolute;
   content: "";
   top: 0;
   left: 0;
   width: 0;
   height: 100%;
-  background: #ff003b;
-  transition: all .35s;
+  background: #77dd8d;
+  transition: all 0.35s;
 }
 
-a:hover{
+.button-wrapper:hover {
   color: #fff;
 }
 
-a:hover:after{
+.button-wrapper:hover:after {
   width: 100%;
 }
 </style>

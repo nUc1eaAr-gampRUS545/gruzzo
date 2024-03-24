@@ -18,6 +18,9 @@ const priceShow=()=>{
   if(price == null) {
     return ` `
   }
+  if(isNaN(price)){
+    return ` `
+  }
 
   return ` ${price}₽`
 }

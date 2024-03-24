@@ -3,8 +3,9 @@ import { onMounted, ref, watch } from "vue";
 import DropDownPrimeVue from "./Inputs/DropDown.vue";
 import CalendarPrimeVue from "./Inputs/CalendarPrimeVue.vue";
 import InputNumberPrimeVue from "./Inputs/InputNumber.vue";
-import CascadeSelectPrimeVue from "./Inputs/CascadeSelect.vue";
+//import CascadeSelectPrimeVue from "./Inputs/CascadeSelect.vue";
 import CaruselProject from "./Inputs/Carusel.vue";
+import inputStreet from "./Inputs/inputStreet.vue"
 import InputPhone from "./Inputs/InputMask.vue";
 import InputOption from "./Inputs/InputOptions.vue";
 import ButtonSaved from "./Inputs/ButtonSaved.vue";
@@ -74,11 +75,12 @@ const handleSubmit = () => {
       <div class="container">
         <div class="container-item">
           <p>Пункт A</p>
-          <CascadeSelectPrimeVue v-model="formData.placeA" />
+          <inputStreet v-model="formData.placeA" />
+         
         </div>
         <div class="container-item">
           <p>Пункт B</p>
-          <CascadeSelectPrimeVue v-model="formData.placeB" />
+          <inputStreet v-model="formData.placeB" />
         </div>
       </div>
       <div class="container">
@@ -120,6 +122,7 @@ const handleSubmit = () => {
   width: 100%;
   gap: 50px;
 }
+
 .createorder {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -127,8 +130,9 @@ const handleSubmit = () => {
   margin: 50px auto 0 auto;
   display: flex;
   flex-direction: column;
-  height: 650px;
+  height: 750px;
 }
+
 .container {
   display: flex;
   width: 100%;
@@ -137,19 +141,23 @@ const handleSubmit = () => {
   justify-content: space-around;
   align-items: center;
 }
+
 .container-phone {
   margin: 0px 50px 50px 35px;
 }
+
 .container-item {
   display: flex;
   flex-direction: column;
   width: 50%;
   align-items: center;
 }
+
 .container-option {
   display: flex;
   align-items: flex-start;
 }
+
 .container-save {
   display: flex;
   margin: 70px 0px 50px 0px;

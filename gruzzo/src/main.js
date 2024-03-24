@@ -7,10 +7,25 @@ import "primevue/resources/themes/aura-light-green/theme.css";
 import "primevue/resources/primevue.min.css"; /* Deprecated */
 import "primeicons/primeicons.css";
 import "./flags.css";
+
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+
+
+const vuetify = createVuetify({
+    theme: {
+        defaultTheme: 'light',
+        
+      },
+  components,
+  
+})
+
 import store from './store/store.js';
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
+app.use(vuetify)
 app.use(store);
 app.mount('#app');
 
